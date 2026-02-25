@@ -1,0 +1,6 @@
+stack: backend
+language: python
+layer: application
+id: python_bot-backend
+dependsOn:
+  - chatwoot_api

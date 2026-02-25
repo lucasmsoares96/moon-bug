@@ -1,0 +1,13 @@
+# moon
+.moon/cache
+.moon/docker
+
+.terraform/
+flattened-codebase.xml
+
+# generated
+openapi.json
+
+# claude code (generated from .agent/)
+.claude/
+CLAUDE.md

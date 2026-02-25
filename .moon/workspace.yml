@@ -1,0 +1,20 @@
+$schema: ./cache/schemas/workspace.json
+projects:
+- frontend/apps/*
+- frontend/packages/*
+- backend/apps/*
+- backend/packages/*
+- infra/apps/*
+- infra/apps/cluster*
+- infra/apps/cluster/core/*
+vcs:
+  defaultBranch: main
+  client: git
+docker:
+  scaffold:
+    configsPhaseGlobs:
+    - frontend/pnpm-workspace.yaml
+    - frontend/package.json
+    - backend/pyproject.toml
+    - backend/uv.lock
+    - scripts/**/*

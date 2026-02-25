@@ -1,0 +1,7 @@
+services:
+  python_bot:
+    build:
+      context: ../../../
+      dockerfile: backend/apps/python_bot/Dockerfile
+    ports:
+      - "2004:2004"

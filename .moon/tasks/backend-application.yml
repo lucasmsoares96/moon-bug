@@ -1,0 +1,60 @@
+tasks:
+  start-backend:
+    command: uv run -- python $workspaceRoot/scripts/backend_start.py
+    deps:
+    - compose-up
+    options:
+      cache: false
+      runInCI: false
+      persistent: true
+      outputStyle: stream
+    preset: server
+  debug-backend:
+    command: uv run -- python $workspaceRoot/scripts/backend_start.py --wait
+    deps:
+    - compose-up
+    options:
+      cache: false
+      runInCI: false
+      persistent: true
+      outputStyle: stream
+    preset: server
+  lint:
+    script: uv run -- python $workspaceRoot/scripts/lint_backend.py
+    options:
+      runInCI: false
+      cache: false
+  sync-deps:
+    command: uv sync
+    options:
+      runInCI: false
+    deps:
+    - compose-build
+  compile-email-templates:
+    command: uv run -- python $workspaceRoot/scripts/compile_email_templates.py
+  compose-down:
+    command: uv run -- python $workspaceRoot/scripts/compose_down.py
+    options:
+      runInCI: false
+      cache: false
+  compose-up:
+    command: docker compose --env-file .env up -d
+    options:
+      runInCI: false
+      cache: false
+    deps:
+    - compose-down
+    - compile-email-templates
+  compose-build:
+    command: docker compose build --no-cache
+    deps:
+    - compile-email-templates
+    options:
+      cache: false
+  compose-push:
+    command: docker compose push
+    deps:
+    - compose-build
+inheritedBy:
+  stack: backend
+  layer: application
